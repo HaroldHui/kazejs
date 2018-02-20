@@ -1,0 +1,21 @@
+{
+  "name": "kazejs",
+  "version": "0.1.5",
+  "description": "a web framework with koa typescript",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc & NODE_ENV=development node ./dist/app.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shuhui",
+  "license": "ISC",
+  "dependencies": {
+    "@types/koa": "^2.0.44",
+    "@types/koa-router": "^7.0.27",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "nodemon": "^1.15.1"
+  }
+}
