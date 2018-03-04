@@ -12,15 +12,21 @@ interface Routes {
   }>
 }
 
-interface Decorator {
+interface FunctionDecorator {
   (target: any, name: string): void
 }
 
+interface ClassDecorator {
+  (constructor: Function): void
+}
+
+
 export interface RestMapper extends Mapper {
-  post(url: string): Decorator;
-  get(url: string): Decorator;
-  delete(url: string): Decorator;
-  put(url: string): Decorator;
+  post(url: string): FunctionDecorator;
+  get(url: string): FunctionDecorator;
+  delete(url: string): FunctionDecorator;
+  put(url: string): FunctionDecorator;
+  rest(url: string): ClassDecorator;
 }
 
 class Mapper {
@@ -45,6 +51,23 @@ class Mapper {
 
   getRoutes() {
     return this.routes;
+  }
+
+  rest(url: string) {
+    return (constructor: Function) => {
+      // get update delete, post all
+      ['get', 'update', 'delete'].forEach((method) => {
+        const handler = constructor.prototype[method];
+        if (handler) {
+          (<any>this).setRoute(url + '/:id', {
+            httpMethod: method,
+            constructor: constructor,
+            handler: method,
+          });
+        }
+
+      })
+    }
   }
 }
 
