@@ -36,6 +36,20 @@ class Mapper {
                     });
                 }
             });
+            if (constructor.prototype['all']) {
+                this.setRoute(url, {
+                    httpMethod: 'get',
+                    constructor: constructor,
+                    handler: 'all',
+                });
+            }
+            if (constructor.prototype['post']) {
+                this.setRoute(url, {
+                    httpMethod: 'post',
+                    constructor: constructor,
+                    handler: 'post',
+                });
+            }
         };
     }
 }

@@ -65,10 +65,24 @@ class Mapper {
             handler: method,
           });
         }
-
-      })
+      });
+      if (constructor.prototype['all']) {
+        (<any>this).setRoute(url, {
+          httpMethod: 'get',
+          constructor: constructor,
+          handler: 'all',
+        });
+      }
+      if (constructor.prototype['post']) {
+        (<any>this).setRoute(url, {
+          httpMethod: 'post',
+          constructor: constructor,
+          handler: 'post',
+        });
+      }
     }
   }
+
 }
 
 const methods = ['get', 'post', 'put', 'delete'];
